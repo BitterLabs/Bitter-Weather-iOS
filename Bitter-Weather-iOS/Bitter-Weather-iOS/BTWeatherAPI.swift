@@ -16,6 +16,8 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     
     var clManager:CLLocationManager
     
+    var city:String?
+    
      override init(){
         print("Initializing")
         let authorizationStatus=CLLocationManager.authorizationStatus()
@@ -34,10 +36,26 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         print("reached locationManager")
+        
+        let currentLocation=locations.last!
+        
+        
+        let reverseGeocoder = CLGeocoder()
+        reverseGeocoder.reverseGeocodeLocation(currentLocation, completionHandler: {(placemarks, error) ->Void in
+            
+            let cityLocale = placemarks?[0].locality
+            
+            if cityLocale != nil{
+                self.city = cityLocale
+            }
+           
+        })
+        
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError){
        // print("locationManager failed")
     }
+    
     
 }
