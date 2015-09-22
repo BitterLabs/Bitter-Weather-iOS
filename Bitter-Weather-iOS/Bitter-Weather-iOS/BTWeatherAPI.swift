@@ -13,6 +13,7 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     
     let yahooQuery="https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%@\")&format=json"
     
+    
     var clManager:CLLocationManager
     
      override init(){
