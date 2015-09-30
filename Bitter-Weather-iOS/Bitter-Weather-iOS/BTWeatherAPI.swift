@@ -11,15 +11,16 @@ import CoreLocation
 
 class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     
-    let yahooQuery="https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%@\")&format=json"
-    
+    let yahooBaseURL="https://query.yahooapis.com/v1/public/yql?"
+
+    let yahooQuery="q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%@\")&format=json"
+
     
     var clManager:CLLocationManager
     
     var city:String?
     
      override init(){
-        print("Initializing")
         let authorizationStatus=CLLocationManager.authorizationStatus()
         print(authorizationStatus.rawValue)
         clManager = CLLocationManager()
@@ -29,9 +30,8 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
         }
         super.init()
         clManager.delegate = self
-        clManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        clManager.requestAlwaysAuthorization()
-        clManager.startMonitoringSignificantLocationChanges()
+        clManager.requestWhenInUseAuthorization()
+        clManager.requestLocation()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
@@ -54,7 +54,42 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError){
-       // print("locationManager failed")
+        print("locationManager failed")
+    }
+    
+    func getForecast(){
+        //tmporary
+        self.city="Toronto"
+        if ((self.city) != nil){
+            let concatenatedQuery = String(format: yahooQuery, arguments: [self.city!])
+            
+            let escapedQuery = concatenatedQuery.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            
+            print(escapedQuery)
+            
+            if let url = NSURL(string: yahooBaseURL+escapedQuery!){
+
+                let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
+                    let json=self.convertDataToDictionary(data!)!
+                    
+                }
+                task.resume()
+
+            }
+            
+        }
+        
+    }
+    
+    func convertDataToDictionary(data: NSData) -> [String:AnyObject]? {
+            do{
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) as? [String:AnyObject]
+                return json
+
+            } catch let error as NSError{
+                print(error.localizedDescription)
+            }
+            return nil
     }
     
     
