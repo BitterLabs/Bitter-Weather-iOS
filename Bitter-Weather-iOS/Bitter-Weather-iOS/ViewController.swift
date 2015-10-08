@@ -21,7 +21,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        btWeatherAPI.getForecast()
+        btWeatherAPI.getForecast(latitude: 43.7000, longitude: 79.4000, celsius: true)
+        print(WeatherIcon.ClearDay)
     }
 
     override func didReceiveMemoryWarning() {

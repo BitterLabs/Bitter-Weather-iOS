@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E60DDACB1BC5ED6D00BDD7DC /* BTDailyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DDACA1BC5ED6D00BDD7DC /* BTDailyForecast.swift */; settings = {ASSET_TAGS = (); }; };
 		E694FE2F1BB0D7AC00353669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E694FE2E1BB0D7AC00353669 /* AppDelegate.swift */; };
 		E694FE311BB0D7AC00353669 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E694FE301BB0D7AC00353669 /* ViewController.swift */; };
 		E694FE341BB0D7AC00353669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E694FE321BB0D7AC00353669 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E60DDACA1BC5ED6D00BDD7DC /* BTDailyForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDailyForecast.swift; sourceTree = "<group>"; };
 		E694FE2B1BB0D7AC00353669 /* Bitter-Weather-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bitter-Weather-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E694FE2E1BB0D7AC00353669 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E694FE301BB0D7AC00353669 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +42,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E60DDAC91BC5EB4900BDD7DC /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				E60DDACA1BC5ED6D00BDD7DC /* BTDailyForecast.swift */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		E694FE221BB0D7AC00353669 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		E694FE2D1BB0D7AC00353669 /* Bitter-Weather-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				E60DDAC91BC5EB4900BDD7DC /* DataModel */,
 				E694FE401BB0DA0700353669 /* Models */,
 				E694FE2E1BB0D7AC00353669 /* AppDelegate.swift */,
 				E694FE301BB0D7AC00353669 /* ViewController.swift */,
@@ -149,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60DDACB1BC5ED6D00BDD7DC /* BTDailyForecast.swift in Sources */,
 				E694FE421BB0DA2500353669 /* BTWeatherAPI.swift in Sources */,
 				E694FE311BB0D7AC00353669 /* ViewController.swift in Sources */,
 				E694FE2F1BB0D7AC00353669 /* AppDelegate.swift in Sources */,

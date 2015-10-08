@@ -14,6 +14,8 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     let yahooBaseURL="https://query.yahooapis.com/v1/public/yql?"
 
     let yahooQuery="q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%@\")&format=json"
+    
+    let forecastIOBaseURL="https://api.forecast.io/forecast/6a9ccdc5e3b24ef6db129a02a433b42d/%@,%@?units=%@"
 
     
     var clManager:CLLocationManager
@@ -32,6 +34,34 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
         clManager.delegate = self
         clManager.requestWhenInUseAuthorization()
         clManager.requestLocation()
+    }
+    
+    func getForecast(latitude latitude: Double, longitude: Double, celsius: Bool){
+        var args = [CVarArgType]()
+        args.append(String(latitude))
+        args.append(String(longitude))
+        if (celsius){
+            args.append("si")
+        }else{
+            args.append("us")
+        }
+        
+        let httpQuery = String(format: forecastIOBaseURL, arguments: args)
+        
+        print(httpQuery)
+        if let url = NSURL(string: httpQuery){
+            
+            let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
+//                let json=self.convertDataToDictionary(data!)!
+    //            let tmp=json["daily"] as? [String:AnyObject]
+  //              let tmp2=tmp!["data"] as? [AnyObject]
+      //          print(json)
+                self.convertDataToNSDictionary(data!)
+                
+            }
+            task.resume()
+            
+        }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
@@ -71,6 +101,7 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
 
                 let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
                     let json=self.convertDataToDictionary(data!)!
+                    self.convertDataToNSDictionary(data!)
                     
                 }
                 task.resume()
@@ -90,6 +121,29 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
                 print(error.localizedDescription)
             }
             return nil
+    }
+    
+    func convertDataToNSDictionary(data: NSData) -> NSDictionary?{
+        do{
+            //precipProbability
+            //icon
+            //"temperatureMax"
+            let tmp = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) as? NSDictionary
+            
+            if let dailyForecast = tmp?.objectForKey("daily")?.objectForKey("data") as? Array<AnyObject>{
+                print("Reached");
+            }else{
+                print("Not Reached")
+            }
+            
+//            let tmp2=tmp?.objectForKey("daily")?.objectForKey("data2") as! NSArray
+            return nil
+        }catch{
+            
+        }
+        
+        
+        return nil;
     }
     
     
