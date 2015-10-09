@@ -21,9 +21,8 @@ class ViewController: UIViewController, BTWeatherAPIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    //    btWeatherAPI.getForecast(true){(dailyForecast: Array<BTDailyForecast>) in
-      //      print(dailyForecast)
-       // }
+        btWeatherAPI?.getForecast(true)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +31,7 @@ class ViewController: UIViewController, BTWeatherAPIDelegate {
     }
     
     func dailyForecastDidUpdate(dailyForecast: Array<BTDailyForecast>){
-        
+        print(dailyForecast)
     }
 
 
