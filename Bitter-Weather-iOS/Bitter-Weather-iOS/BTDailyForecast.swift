@@ -20,30 +20,30 @@ enum WeatherIcon{
     case PartlyCloudyDay
     case PartlyCloudyNight
     
-    func getIconFromValue(value: String) -> WeatherIcon{
+    init(value: String){
         switch value{
-            case "clear-day":
-                return WeatherIcon.ClearDay
-            case "clear-night":
-                return WeatherIcon.ClearNight
-            case "rain":
-                return WeatherIcon.Rain
-            case "snow":
-                return WeatherIcon.Snow
-            case "sleet":
-                return WeatherIcon.Sleet
-            case "wind":
-                return WeatherIcon.Wind
-            case "fog":
-                return WeatherIcon.Fog
-            case "cloudy":
-                return WeatherIcon.Cloudy
-            case "partly-cloudy-day":
-                return WeatherIcon.PartlyCloudyDay
-            case "partly-cloudy-night":
-                return WeatherIcon.PartlyCloudyNight
-            default:
-                return WeatherIcon.ClearDay
+        case "clear-day":
+            self = .ClearDay
+        case "clear-night":
+            self = .ClearNight
+        case "rain":
+            self = .Rain
+        case "snow":
+            self = .Snow
+        case "sleet":
+            self = .Sleet
+        case "wind":
+            self = .Wind
+        case "fog":
+            self = .Fog
+        case "cloudy":
+            self = .Cloudy
+        case "partly-cloudy-day":
+            self = .PartlyCloudyDay
+        case "partly-cloudy-night":
+            self = .PartlyCloudyNight
+        default:
+            self = .ClearDay
         }
     }
 }
@@ -51,6 +51,5 @@ enum WeatherIcon{
 struct BTDailyForecast {
     var precipitationProbability : Double
     var weatherIcon : WeatherIcon
-    
-    
+    var maxTemperature : Double    
 }
