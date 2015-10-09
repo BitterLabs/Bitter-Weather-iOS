@@ -8,27 +8,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BTWeatherAPIDelegate {
     
-    var btWeatherAPI: BTWeatherAPI
+    var btWeatherAPI: BTWeatherAPI?
 
     required init(coder aDecoder: NSCoder) {
-        btWeatherAPI = BTWeatherAPI()
         super.init(coder: aDecoder)!
+        btWeatherAPI = BTWeatherAPI(delegate: self)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        btWeatherAPI.getForecast(true){(dailyForecast: Array<BTDailyForecast>) in
-            print(dailyForecast)
-        }
+    //    btWeatherAPI.getForecast(true){(dailyForecast: Array<BTDailyForecast>) in
+      //      print(dailyForecast)
+       // }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func dailyForecastDidUpdate(dailyForecast: Array<BTDailyForecast>){
+        
     }
 
 

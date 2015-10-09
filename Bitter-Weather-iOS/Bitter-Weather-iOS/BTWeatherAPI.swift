@@ -9,6 +9,10 @@
 import Foundation
 import CoreLocation
 
+protocol BTWeatherAPIDelegate{
+    func dailyForecastDidUpdate(dailyForecast: Array<BTDailyForecast>)
+}
+
 class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
 
     let forecastIOBaseURL="https://api.forecast.io/forecast/6a9ccdc5e3b24ef6db129a02a433b42d/%@,%@?units=%@"
@@ -18,13 +22,15 @@ class BTWeatherAPI : NSObject, CLLocationManagerDelegate{
     var latitude: Double?
     var longitude: Double?
     
-     override init(){
+    var delegate: BTWeatherAPIDelegate
+    
+    init?(delegate: BTWeatherAPIDelegate){
         clManager = CLLocationManager()
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Restricted || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied){
-            //TODO: Convert this initializer to failable
-//            return nil
-        }
+        self.delegate = delegate
         super.init()
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Restricted || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied){
+            return nil
+        }
         clManager.delegate = self
         clManager.requestWhenInUseAuthorization()
         clManager.requestLocation()
